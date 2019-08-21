@@ -8,18 +8,30 @@ const TodoList = () => {
   const dispatch = useDispatch();
 
   const [stateTodo, setStateTodo] = useState("");
+  const [auxList] = useState([]);
+
+  function checkList(state, list, string) {
+    for (let i = 0; i < list.length; i++) {
+      if (state === list[i]) {
+        return alert(`Você já adicionou ${state} à lista.`);
+      }
+    }
+    return [dispatch(addTodoActions(string)), auxList.push(stateTodo)];
+  }
 
   function addTodo(string) {
-    dispatch(addTodoActions(string));
+    if (stateTodo.length > 0) {
+      checkList(stateTodo, auxList, string);
+    } else {
+      alert(`Escreva no campo "Adicionar à lista"`);
+    }
   }
 
   return (
     <div>
-      {todos.map((todos, i) => {
-        return <li key={i}>{todos.text}</li>;
-      })}
       <input
         type="text"
+        placeholder="Adicionar à lista"
         onChange={e => {
           setStateTodo(e.target.value);
         }}
@@ -29,8 +41,13 @@ const TodoList = () => {
           addTodo(stateTodo);
         }}
       >
-        Adiciona list
+        Adicionar à lista
       </button>
+      <ul>
+        {todos.map((todo, i) => {
+          return <li key={i}>{todo.text}</li>;
+        })}
+      </ul>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const TodoList = () => {
         return alert(`Você já adicionou ${state} à lista.`);
       }
     }
-    return [dispatch(addTodoActions(string)), auxList.push(stateTodo)];
+    return [dispatch(addTodoActions(string)), list.push(stateTodo)];
   }
 
   function addTodo(string) {
@@ -29,6 +29,7 @@ const TodoList = () => {
 
   return (
     <div>
+      <h2>Lista de Afazeres</h2>
       <input
         type="text"
         placeholder="Adicionar à lista"
